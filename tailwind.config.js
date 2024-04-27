@@ -2,13 +2,15 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
-    fontFamily: {
-      satisfy: ["Satisfy", "cursive"],
-    },
-    colors: {
-      skyBlue: "#00BFFF",
-      violet: "#8A2BE2",
+    extend: {
+      fontFamily: {
+        satisfy: ["Satisfy", "cursive"],
+        nunito: ["Nunito,sans-serif"],
+      },
+      colors: {
+        "sky-blue": "#00BFFF",
+        "dark-violet": "#8A2BE2",
+      },
     },
   },
   plugins: [],
