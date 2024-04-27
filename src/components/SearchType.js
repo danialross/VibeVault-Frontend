@@ -1,7 +1,7 @@
 function SearchType() {
   const option = ["Track", "Artist", "Genre"];
   return (
-    <div className="flex justify-center w-full bg-dark-violet p-8 ">
+    <div className="flex justify-center w-full bg-dark-violet pb-8 ">
       <ul className="w-full text- font-medium text-center ">
         <li className="w-full focus-within:z-10 rounded-xl">
           {option.map((item, index) => {
