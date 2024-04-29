@@ -1,10 +1,10 @@
 import Banner from "../components/Banner";
-import Search from "../components/Search";
+import Column from "../components/Column";
 function HomePage() {
   return (
-    <div>
+    <div className="bg-dark-violet h-[880px]">
       <Banner />
-      <Search />
+      <Column />
     </div>
   );
 }
