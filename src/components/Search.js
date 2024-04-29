@@ -1,5 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 
 function Search() {
   const [isTrackActive, setIsTrackActive] = useState(true);
@@ -39,8 +41,8 @@ function Search() {
 
   return (
     <div className="bg-dark-violet">
-      <div className="w-full flex flex-col justify-center items-center bg-gray-200 p-4 h-full rounded-2xl">
-        <div className="flex justify-center w-full h-4/5 bg-white rounded-xl p-2 mb-4 ">
+      <div className="w-full flex flex-col justify-start items-center bg-gray-200 p-4 h-full rounded-2xl">
+        <div className="flex justify-center w-full h-3/5 bg-white rounded-xl p-2 mb-4 ">
           <div className="w-24 h-6 bg-dark-violet rounded-md text-white font-nunito text-center mb-4 ">
             Selections
           </div>
@@ -49,9 +51,11 @@ function Search() {
           <div className="mr-4 ">
             <select
               id="countries"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             >
-              <option selected>Recommendations</option>
+              <option value={"default"} disabled>
+                Recommendations
+              </option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -59,16 +63,16 @@ function Search() {
             </select>
           </div>
 
-          <div className="bg-gray-400 p-1 rounded-2xl mr-4">
+          <div className="bg-gray-400 p-1 rounded-lg mr-4">
             <ul className="w-full font-medium text-center">
               <li className="w-full focus-within:z-10 rounded-xl">
                 {options.map((item, index) => {
                   let rounded = "";
                   if (index === 0) {
-                    rounded = "rounded-s-xl border-none";
+                    rounded = "rounded-s-lg border-none";
                   }
                   if (index === options.length - 1) {
-                    rounded = "rounded-e-xl border-none";
+                    rounded = "rounded-e-lg border-none";
                   }
                   return (
                     <button
@@ -85,25 +89,25 @@ function Search() {
               </li>
             </ul>
           </div>
-          <button className=" w-12 text-sm font-medium text-white bg-sky-blue rounded-2xl  border-sky-blue  hover:bg-blue-600 hover:border-blue-600">
+          <button className=" w-12 text-sm font-medium text-white bg-sky-blue rounded-lg  border-sky-blue  hover:bg-blue-600 hover:border-blue-600">
             Go
           </button>
         </div>
-        <div className="flex justify-center pb-16 w-full">
-          <div className="flex w-full">
-            <input
-              type="search"
-              id="search-dropdown"
-              className="block p-2.5 w-full z-20 text-sm outline-none rounded-s-lg text-gray-900 bg-gray-50 rounded-e-lg  border-gray-300  focus:border-sky-blue"
-              placeholder={`${isArtistActive ? "Search an Artist" : ""}${
-                isTrackActive ? "Search a Track" : ""
-              }${isGenreActive ? "Search a Genre" : ""}`}
-              onChange={(e) => {
-                setSearch(e.target.value);
-                console.log(search);
-              }}
-            />
-          </div>
+        <div className="relative flex justify-center pb-16 w-full">
+          <input
+            value={search}
+            className="p-2 w-full text-sm outline-none rounded-s-lg text-gray-900 bg-gray-50 rounded-e-lg  border-gray-300  focus:border-sky-blue"
+            placeholder={`${isArtistActive ? "Search an Artist" : ""}${
+              isTrackActive ? "Search a Track" : ""
+            }${isGenreActive ? "Search a Genre" : ""}`}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              console.log(search);
+            }}
+          />
+          <button className="absolute top-1.5 right-3  ">
+            <FontAwesomeIcon icon={faX} onClick={() => setSearch("")} />
+          </button>
         </div>
       </div>
     </div>
