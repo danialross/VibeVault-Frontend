@@ -43,7 +43,7 @@ function Search() {
     <div className="bg-dark-violet">
       <div className="w-full flex flex-col justify-start items-center bg-gray-200 p-4 h-full rounded-2xl">
         <div className="flex justify-center w-full h-3/5 bg-white rounded-xl p-2 mb-4 ">
-          <div className="w-24 h-6 bg-dark-violet rounded-md text-white font-nunito text-center mb-4 ">
+          <div className="text-dark-violet rounded-md text-lg font-nunito text-center mb-4 ">
             Selections
           </div>
         </div>
@@ -53,9 +53,7 @@ function Search() {
               id="countries"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
             >
-              <option value={"default"} disabled>
-                Recommendations
-              </option>
+              <option value={"default"}>Recommendations</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -63,31 +61,25 @@ function Search() {
             </select>
           </div>
 
-          <div className="bg-gray-400 p-1 rounded-lg mr-4">
-            <ul className="w-full font-medium text-center">
-              <li className="w-full focus-within:z-10 rounded-xl">
-                {options.map((item, index) => {
-                  let rounded = "";
-                  if (index === 0) {
-                    rounded = "rounded-s-lg border-none";
-                  }
-                  if (index === options.length - 1) {
-                    rounded = "rounded-e-lg border-none";
-                  }
-                  return (
-                    <button
-                      className={`inline-block  py-1 px-2  text-md ${rounded} ${
-                        item.state ? "text-sky-blue" : "text-dark-violet"
-                      } bg-gray-100 font-nunito border-x border-gray-300 focus:outline-none hover:bg-gray-300`}
-                      onClick={() => toggleSelections(item.type)}
-                      key={index}
-                    >
-                      {item.type}
-                    </button>
-                  );
-                })}
-              </li>
-            </ul>
+          <div className="flex relative font-medium text-center mr-4 rounded-xl bg-gray-400 border-gray-300 z-10">
+            {options.map((item, index) => {
+              return (
+                <div
+                  className={` p-2 z-30 text-md font-nunito text-white `}
+                  onClick={() => toggleSelections(item.type)}
+                  key={index}
+                >
+                  {item.type}
+                </div>
+              );
+            })}
+            <div
+              className={`absolute h-8  bg-dark-violet top-1 left-1 z-20 rounded-lg transition-all ease-out duration-100 ${
+                isTrackActive ? "left-1 w-12" : ""
+              } ${isArtistActive ? "left-14 w-[54px]" : ""} ${
+                isGenreActive ? "left-28 w-[53px]" : ""
+              } `}
+            />
           </div>
           <button className=" w-12 text-sm font-medium text-white bg-sky-blue rounded-lg  border-sky-blue  hover:bg-blue-600 hover:border-blue-600">
             Go
