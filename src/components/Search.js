@@ -65,7 +65,7 @@ function Search() {
             {options.map((item, index) => {
               return (
                 <div
-                  className={` p-2 z-30 text-md font-nunito text-white `}
+                  className={`p-2 z-30 text-md font-nunito text-white `}
                   onClick={() => toggleSelections(item.type)}
                   key={index}
                 >
@@ -75,20 +75,20 @@ function Search() {
             })}
             <div
               className={`absolute h-8  bg-dark-violet top-1 left-1 z-20 rounded-lg transition-all ease-out duration-100 ${
-                isTrackActive ? "left-1 w-12" : ""
-              } ${isArtistActive ? "left-14 w-[54px]" : ""} ${
-                isGenreActive ? "left-28 w-[53px]" : ""
+                isTrackActive ? "left-1 w-[46px]" : ""
+              } ${isArtistActive ? "left-14 w-[52px]" : ""} ${
+                isGenreActive ? "left-28 w-[54px]" : ""
               } `}
             />
           </div>
-          <button className=" w-12 text-sm font-medium text-white bg-sky-blue rounded-lg  border-sky-blue  hover:bg-blue-600 hover:border-blue-600">
+          <button className="w-12 text-sm font-medium text-white bg-sky-blue rounded-lg border-sky-blue hover:bg-blue-600 hover:border-blue-600">
             Go
           </button>
         </div>
         <div className="relative flex justify-center pb-16 w-full">
           <input
             value={search}
-            className="p-2 w-full text-sm outline-none rounded-s-lg text-gray-900 bg-gray-50 rounded-e-lg  border-gray-300  focus:border-sky-blue"
+            className="p-2 w-full text-sm outline-none rounded-s-lg text-gray-900 bg-gray-50 rounded-e-lg border-gray-300 focus:border-sky-blue"
             placeholder={`${isArtistActive ? "Search an Artist" : ""}${
               isTrackActive ? "Search a Track" : ""
             }${isGenreActive ? "Search a Genre" : ""}`}
@@ -97,7 +97,7 @@ function Search() {
               console.log(search);
             }}
           />
-          <button className="absolute top-1.5 right-3  ">
+          <button className="absolute top-1.5 right-3">
             <FontAwesomeIcon icon={faX} onClick={() => setSearch("")} />
           </button>
         </div>
