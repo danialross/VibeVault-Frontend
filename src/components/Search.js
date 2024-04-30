@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +8,8 @@ function Search() {
   const [isArtistActive, setIsArtistActive] = useState(false);
   const [isGenreActive, setIsGenreActive] = useState(false);
   const [search, setSearch] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [debounceInput, setDebounceInput] = useState("");
 
   const options = [
     { type: "Track", state: isTrackActive },
@@ -34,10 +36,54 @@ function Search() {
     }
   };
 
-  const fetchSuggestions = () => {
-    const url = `${process.env.API_URL}/get-metadata`;
-    let parameters = "";
-  };
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebounceInput(search);
+    }, 2000);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [search]);
+
+  useEffect(() => {
+    if (debounceInput) {
+      const fetchSuggestions = async () => {
+        let url = `${process.env.REACT_APP_API_URL}/`;
+        let params = {};
+        if (isGenreActive) {
+          url += "get-genres";
+        } else {
+          url += "get-metadata";
+          if (isTrackActive) {
+            params.track = search;
+          } else {
+            params.artist = search;
+          }
+        }
+        let response = null;
+
+        console.log(`url : ${url}`);
+        console.log(`params : ${params}`);
+
+        try {
+          response = await axios.get(url, { params: params });
+          console.log(response.data);
+          if (isGenreActive) {
+            setSuggestions(
+              response.data.result.filter((item) => item.includes(search))
+            );
+          } else {
+            console.log(response.data.result);
+            setSuggestions(response.data.result);
+          }
+        } catch (e) {
+          console.error({ error: e });
+        }
+      };
+      fetchSuggestions();
+    }
+  }, [debounceInput]);
 
   return (
     <div className="bg-dark-violet">
@@ -47,7 +93,7 @@ function Search() {
             Selections
           </div>
         </div>
-        <div className="flex justify-center w-full pb-4">
+        <div className=" flex justify-center w-full pb-4">
           <div className="mr-4 ">
             <select
               id="countries"
@@ -74,7 +120,7 @@ function Search() {
               );
             })}
             <div
-              className={`absolute h-8  bg-dark-violet top-1 left-1 z-20 rounded-lg transition-all ease-out duration-100 ${
+              className={`absolute h-8 bg-dark-violet top-1 z-20 rounded-lg transition-all ease-out duration-100 ${
                 isTrackActive ? "left-1 w-[46px]" : ""
               } ${isArtistActive ? "left-14 w-[52px]" : ""} ${
                 isGenreActive ? "left-28 w-[54px]" : ""
@@ -85,22 +131,44 @@ function Search() {
             Go
           </button>
         </div>
-        <div className="relative flex justify-center pb-16 w-full">
+        <div className="relative flex justify-center pb-4 w-full">
           <input
             value={search}
             className="p-2 w-full text-sm outline-none rounded-s-lg text-gray-900 bg-gray-50 rounded-e-lg border-gray-300 focus:border-sky-blue"
             placeholder={`${isArtistActive ? "Search an Artist" : ""}${
               isTrackActive ? "Search a Track" : ""
-            }${isGenreActive ? "Search a Genre" : ""}`}
+            }${isGenreActive ? "Search a Genre" : ""}
+            `}
             onChange={(e) => {
               setSearch(e.target.value);
               console.log(search);
             }}
           />
           <button className="absolute top-1.5 right-3">
-            <FontAwesomeIcon icon={faX} onClick={() => setSearch("")} />
+            <FontAwesomeIcon
+              icon={faX}
+              onClick={() => {
+                setSearch("");
+                setDebounceInput("");
+                setSuggestions([]);
+              }}
+            />
           </button>
         </div>
+        {suggestions.length !== 0 && (
+          <div className=" bg-white w-full rounded-xl p-2 font-nunito">
+            <ul>
+              {suggestions.map((item) => (
+                <li className="hover:bg-gray-300 rounded-md px-2">
+                  <button className="w-full text-start">
+                    {`${item.name} By ${item.artist[0].name}
+                    `}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
