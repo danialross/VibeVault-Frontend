@@ -7,11 +7,14 @@ function Selections({ title, artist, genre, image, handleRemove }) {
 
   useEffect(() => {
     setCurOpacity(100);
+    setTimeout(() => {
+      return;
+    }, 250);
   }, []);
 
   return (
     <div
-      className={`flex flex-col justify-center items-center gap-2 opacity-${curOpacity} transition-all ease-out duration-500`}
+      className={`flex flex-col justify-center items-center gap-2 opacity-${curOpacity} transition-opacity ease-out duration-250`}
     >
       <div
         className={`relative w-32 bg-red-500 rounded-lg`}
@@ -32,7 +35,7 @@ function Selections({ title, artist, genre, image, handleRemove }) {
             } transition-all duration-25`}
             onClick={() => {
               setCurOpacity(0);
-              setTimeout(() => handleRemove(), 250);
+              setTimeout(() => handleRemove(), 100);
             }}
           >
             <FontAwesomeIcon icon={faX} color="white" />

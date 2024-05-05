@@ -14,6 +14,7 @@ function Search() {
   const [selections, setSelection] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [debounceInput, setDebounceInput] = useState("");
+  const [buttonisDisabled, setButtonIsDisabled] = useState(false);
 
   const options = [
     { type: "Track", state: isTrackActive },
@@ -120,6 +121,14 @@ function Search() {
     }
   }, [debounceInput]);
 
+  useEffect(() => {
+    if (selections.length >= 5) {
+      setButtonIsDisabled(true);
+    } else {
+      setButtonIsDisabled(false);
+    }
+  }, [selections]);
+
   return (
     <div className="bg-dark-violet w-[800px]">
       <div className="w-full flex flex-col justify-start items-center bg-gray-200 p-4 h-full rounded-2xl">
@@ -127,7 +136,7 @@ function Search() {
           <div className="text-dark-violet rounded-md text-lg font-nunito text-center mt-1">
             Selections
           </div>
-          <div className="flex justify-evenly w-full h-full p-2">
+          <div className="flex items-start justify-evenly w-full h-full p-2">
             {selections.length !== 0 &&
               selections.map((item) => (
                 <Selection
@@ -190,7 +199,7 @@ function Search() {
           </button>
         </div>
         {
-          <div className=" bg-white w-full rounded-xl font-nunito">
+          <div className="relative bg-white w-full rounded-xl font-nunito">
             {isLoading ? (
               <div role="status" className=" flex justify-center p-4">
                 <svg
@@ -213,14 +222,17 @@ function Search() {
                 <span className="sr-only">Loading...</span>
               </div>
             ) : (
-              <ul className="">
+              <ul>
                 {suggestions.map((item, index) => (
                   <li
-                    className="hover:bg-gray-300 rounded-md px-4 py-2"
+                    className={` ${
+                      buttonisDisabled ? "hover:none" : "hover:bg-gray-300"
+                    } rounded-md px-4 py-2 `}
                     key={index}
                   >
                     <button
-                      className="w-full text-start"
+                      className={`w-full text-start disabled:opacity-20 transition-opacity duration-500 ease-out`}
+                      disabled={buttonisDisabled}
                       onClick={() => {
                         item.key = uuidv4();
                         addToSelection(item);
@@ -232,6 +244,15 @@ function Search() {
                     </button>
                   </li>
                 ))}
+                <div
+                  className={`absolute text-white font-nunito top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600 p-2 rounded-lg ${
+                    buttonisDisabled
+                      ? "opacity-100 duration-200"
+                      : "opacity-0 duration-100"
+                  } transition-all ease-out`}
+                >
+                  Max Selections Reached
+                </div>
               </ul>
             )}
           </div>
