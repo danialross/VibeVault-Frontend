@@ -24,15 +24,15 @@ function Selections({ title, artist, genre, image, handleRemove }) {
         <img
           src={image}
           alt={`${title} cover`}
-          className={`rounded-lg ${
+          className={`rounded-lg w-32 h-32 object-cover ${
             onHover ? "opacity-50 blur scale-105 grayscale" : ""
-          } transition-all duration-25 ease-out`}
+          } transition-all duration-100 ease-out`}
         />
         {onHover && (
           <button
             className={`flex justify-center items-center absolute top-1/3 left-1/3 bg-red-500 rounded-full w-12 h-12 ${
               onHover ? "opacity-100" : "opacity-0"
-            } transition-all duration-25`}
+            } transition-all duration-100`}
             onClick={() => {
               setCurOpacity(0);
               setTimeout(() => handleRemove(), 100);

@@ -69,6 +69,20 @@ function Search() {
     setSelection([...selections, selection]);
   };
 
+  const handleRemoveSelection = (key) => {
+    const modifiedSelection = selections.filter((item) => item.key !== key);
+    setSelection(modifiedSelection);
+  };
+
+  const getButtonText = (item) => {
+    if (isTrackActive) {
+      return `${item.name} - ${item.artist[0].name}`;
+    } else if (isArtistActive) {
+      return `${item.name}`;
+    } else {
+      return `${item}`;
+    }
+  };
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebounceInput(search);
@@ -78,11 +92,6 @@ function Search() {
       clearTimeout(handler);
     };
   }, [search]);
-
-  const handleRemoveSelection = (key) => {
-    const modifiedSelection = selections.filter((item) => item.key !== key);
-    setSelection(modifiedSelection);
-  };
 
   useEffect(() => {
     if (debounceInput) {
@@ -141,8 +150,11 @@ function Search() {
               selections.map((item) => (
                 <Selection
                   key={item.key}
-                  title={item.name}
-                  artist={item.artist[0].name}
+                  //if artist prop exist means the name is the track name
+                  title={item.artist ? item.name : null}
+                  //if artist prop dne means its the name is the artists name
+                  artist={!item.artist ? item.name : item.artist[0].name}
+                  genre={item.genre}
                   image={item.images[1].url}
                   handleRemove={() => handleRemoveSelection(item.key)}
                 />
@@ -238,9 +250,7 @@ function Search() {
                         addToSelection(item);
                       }}
                     >
-                      {isTrackActive
-                        ? `${item.name} - ${item.artist[0].name}`
-                        : `${item}`}
+                      {getButtonText(item)}
                     </button>
                   </li>
                 ))}
