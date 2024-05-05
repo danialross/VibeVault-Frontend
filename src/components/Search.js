@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
@@ -10,183 +11,7 @@ function Search() {
   const [isGenreActive, setIsGenreActive] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [selections, setSelection] = useState([
-    {
-      name: "Delilah (pull me out of this)",
-      id: "0Ftrkz2waaHcjKb4qYvLmz",
-      artist: [
-        {
-          external_urls: {
-            spotify: "https://open.spotify.com/artist/4oLeXFyACqeem2VImYeBFe",
-          },
-          href: "https://api.spotify.com/v1/artists/4oLeXFyACqeem2VImYeBFe",
-          id: "4oLeXFyACqeem2VImYeBFe",
-          name: "Fred again..",
-          type: "artist",
-          uri: "spotify:artist:4oLeXFyACqeem2VImYeBFe",
-        },
-      ],
-      images: [
-        {
-          height: 640,
-          url: "https://i.scdn.co/image/ab67616d0000b2739c856c6f2c6161af49446bf8",
-          width: 640,
-        },
-        {
-          height: 300,
-          url: "https://i.scdn.co/image/ab67616d00001e029c856c6f2c6161af49446bf8",
-          width: 300,
-        },
-        {
-          height: 64,
-          url: "https://i.scdn.co/image/ab67616d000048519c856c6f2c6161af49446bf8",
-          width: 64,
-        },
-      ],
-    },
-    {
-      name: "Delilah (pull me out of this) outotutouo utout ouotutoiouioioi oioioioioioioioioioioioioioioioioioioioio",
-      id: "5w9upngVRHNjdZcRC7Xxr2",
-      artist: [
-        {
-          external_urls: {
-            spotify: "https://open.spotify.com/artist/4oLeXFyACqeem2VImYeBFe",
-          },
-          href: "https://api.spotify.com/v1/artists/4oLeXFyACqeem2VImYeBFe",
-          id: "4oLeXFyACqeem2VImYeBFe",
-          name: "Fred again..",
-          type: "artist",
-          uri: "spotify:artist:4oLeXFyACqeem2VImYeBFe",
-        },
-        {
-          external_urls: {
-            spotify: "https://open.spotify.com/artist/3WtrH1zNpzoPSz6XpwCh6y",
-          },
-          href: "https://api.spotify.com/v1/artists/3WtrH1zNpzoPSz6XpwCh6y",
-          id: "3WtrH1zNpzoPSz6XpwCh6y",
-          name: "Delilah Montagu",
-          type: "artist",
-          uri: "spotify:artist:3WtrH1zNpzoPSz6XpwCh6y",
-        },
-      ],
-      images: [
-        {
-          height: 640,
-          url: "https://i.scdn.co/image/ab67616d0000b2737622b889949b07f15c6b57e2",
-          width: 640,
-        },
-        {
-          height: 300,
-          url: "https://i.scdn.co/image/ab67616d00001e027622b889949b07f15c6b57e2",
-          width: 300,
-        },
-        {
-          height: 64,
-          url: "https://i.scdn.co/image/ab67616d000048517622b889949b07f15c6b57e2",
-          width: 64,
-        },
-      ],
-    },
-    {
-      name: "DELILAH - SUMMER VERSION",
-      id: "1vMUIdnSrLmdUbBWewg8Tr",
-      artist: [
-        {
-          external_urls: {
-            spotify: "https://open.spotify.com/artist/6Kz7MXIUFMtp5Ts91lagtR",
-          },
-          href: "https://api.spotify.com/v1/artists/6Kz7MXIUFMtp5Ts91lagtR",
-          id: "6Kz7MXIUFMtp5Ts91lagtR",
-          name: "MIKOLAS",
-          type: "artist",
-          uri: "spotify:artist:6Kz7MXIUFMtp5Ts91lagtR",
-        },
-      ],
-      images: [
-        {
-          height: 640,
-          url: "https://i.scdn.co/image/ab67616d0000b27340727a5713448b5d0ad22f0a",
-          width: 640,
-        },
-        {
-          height: 300,
-          url: "https://i.scdn.co/image/ab67616d00001e0240727a5713448b5d0ad22f0a",
-          width: 300,
-        },
-        {
-          height: 64,
-          url: "https://i.scdn.co/image/ab67616d0000485140727a5713448b5d0ad22f0a",
-          width: 64,
-        },
-      ],
-    },
-    {
-      name: "DELILAH - SUMMER VERSION",
-      id: "1vMUIdnSrLmdUbBWewg8Tr",
-      artist: [
-        {
-          external_urls: {
-            spotify: "https://open.spotify.com/artist/6Kz7MXIUFMtp5Ts91lagtR",
-          },
-          href: "https://api.spotify.com/v1/artists/6Kz7MXIUFMtp5Ts91lagtR",
-          id: "6Kz7MXIUFMtp5Ts91lagtR",
-          name: "MIKOLAS",
-          type: "artist",
-          uri: "spotify:artist:6Kz7MXIUFMtp5Ts91lagtR",
-        },
-      ],
-      images: [
-        {
-          height: 640,
-          url: "https://i.scdn.co/image/ab67616d0000b27340727a5713448b5d0ad22f0a",
-          width: 640,
-        },
-        {
-          height: 300,
-          url: "https://i.scdn.co/image/ab67616d00001e0240727a5713448b5d0ad22f0a",
-          width: 300,
-        },
-        {
-          height: 64,
-          url: "https://i.scdn.co/image/ab67616d0000485140727a5713448b5d0ad22f0a",
-          width: 64,
-        },
-      ],
-    },
-    {
-      name: "Hey There Delilah",
-      id: "4RCWB3V8V0dignt99LZ8vH",
-      artist: [
-        {
-          external_urls: {
-            spotify: "https://open.spotify.com/artist/1g1yxsNVPhMUl9GrMjEb2o",
-          },
-          href: "https://api.spotify.com/v1/artists/1g1yxsNVPhMUl9GrMjEb2o",
-          id: "1g1yxsNVPhMUl9GrMjEb2o",
-          name: "Plain White T's",
-          type: "artist",
-          uri: "spotify:artist:1g1yxsNVPhMUl9GrMjEb2o",
-        },
-      ],
-      images: [
-        {
-          height: 640,
-          url: "https://i.scdn.co/image/ab67616d0000b273beae6e69d6505fd379ef3081",
-          width: 640,
-        },
-        {
-          height: 300,
-          url: "https://i.scdn.co/image/ab67616d00001e02beae6e69d6505fd379ef3081",
-          width: 300,
-        },
-        {
-          height: 64,
-          url: "https://i.scdn.co/image/ab67616d00004851beae6e69d6505fd379ef3081",
-          width: 64,
-        },
-      ],
-    },
-  ]);
+  const [selections, setSelection] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [debounceInput, setDebounceInput] = useState("");
 
@@ -253,9 +78,8 @@ function Search() {
     };
   }, [search]);
 
-  const handleRemoveSelection = (index) => {
-    const modifiedSelection = [...selections];
-    modifiedSelection.splice(index, 1);
+  const handleRemoveSelection = (key) => {
+    const modifiedSelection = selections.filter((item) => item.key !== key);
     setSelection(modifiedSelection);
   };
 
@@ -303,30 +127,22 @@ function Search() {
           <div className="text-dark-violet rounded-md text-lg font-nunito text-center mt-1">
             Selections
           </div>
-          <div className="flex justify-center w-full h-full">
+          <div className="flex justify-evenly w-full h-full p-2">
             {selections.length !== 0 &&
-              selections.map((item, index) => (
-                <div
-                  className="flex flex-col justify-start items-center w-full h-full rounded-lg p-3 gap-4 "
-                  key={index}
-                >
-                  <Selection
-                    index={index}
-                    title={item.name}
-                    artist={item.artist[0].name}
-                    image={item.images[1].url}
-                    handleRemove={handleRemoveSelection}
-                  />
-                </div>
+              selections.map((item) => (
+                <Selection
+                  key={item.key}
+                  title={item.name}
+                  artist={item.artist[0].name}
+                  image={item.images[1].url}
+                  handleRemove={() => handleRemoveSelection(item.key)}
+                />
               ))}
           </div>
         </div>
         <div className=" flex justify-center w-full pb-4">
           <div className="mr-4 ">
-            <select
-              id="countries"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 font-nunito"
-            >
+            <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 font-nunito">
               <option value={"default"}>Recommendations</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -405,7 +221,10 @@ function Search() {
                   >
                     <button
                       className="w-full text-start"
-                      onClick={() => addToSelection(item)}
+                      onClick={() => {
+                        item.key = uuidv4();
+                        addToSelection(item);
+                      }}
                     >
                       {isTrackActive
                         ? `${item.name} - ${item.artist[0].name}`
