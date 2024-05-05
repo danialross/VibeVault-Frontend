@@ -14,18 +14,15 @@ function Selections({ index, title, artist, genre, image, handleRemove }) {
           src={image}
           alt={`${title} cover`}
           className={`rounded-lg ${
-            onHover
-              ? "hover:opacity-50 hover:blur hover:scale-105  hover:grayscale"
-              : ""
+            onHover ? "opacity-50 blur scale-105 grayscale" : ""
           } transition-all duration-25`}
         />
         {onHover && (
           <button
-            className="flex justify-center items-center absolute top-1/3 left-1/3 bg-red-500 rounded-full w-12 h-12"
+            className={`flex justify-center items-center absolute top-1/3 left-1/3 bg-red-500 rounded-full w-12 h-12 ${
+              onHover ? "opacity-100" : "opacity-0"
+            } transition-all duration-25`}
             onClick={() => handleRemove(index)}
-            onMouseEnter={(e) => {
-              e.stopPropagation();
-            }}
           >
             <FontAwesomeIcon icon={faX} color="white" />
           </button>
