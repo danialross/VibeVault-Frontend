@@ -1,4 +1,4 @@
-import { faX } from "@fortawesome/free-solid-svg-icons";
+import { faX, faRecordVinyl } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 function Selections({ title, artist, genre, image, handleRemove }) {
@@ -21,13 +21,22 @@ function Selections({ title, artist, genre, image, handleRemove }) {
         onMouseEnter={() => setOnHover(true)}
         onMouseLeave={() => setOnHover(false)}
       >
-        <img
-          src={image}
-          alt={`${title} cover`}
-          className={`rounded-lg w-32 h-32 object-cover ${
+        <div
+          className={` flex justify-center items-center bg-dark-violet rounded-lg w-32 h-32 object-cover ${
             onHover ? "opacity-50 blur scale-105 grayscale" : ""
           } transition-all duration-100 ease-out`}
-        />
+        >
+          {image ? (
+            <img src={image} alt={`${title} cover`} />
+          ) : (
+            <FontAwesomeIcon
+              icon={faRecordVinyl}
+              color="white"
+              className="w-full h-full p-4"
+            />
+          )}
+        </div>
+
         {onHover && (
           <button
             className={`flex justify-center items-center absolute top-1/3 left-1/3 bg-red-500 rounded-full w-12 h-12 ${

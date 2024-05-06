@@ -86,7 +86,7 @@ function Search() {
     } else if (isArtistActive) {
       return `${item.name}`;
     } else {
-      return `${item}`;
+      return `${item.genre}`;
     }
   };
   useEffect(() => {
@@ -106,6 +106,7 @@ function Search() {
         let params = {};
         if (isGenreActive) {
           url += "get-genres";
+          params.genre = search;
         } else {
           url += "get-metadata";
           if (isTrackActive) {
@@ -118,14 +119,8 @@ function Search() {
 
         try {
           response = await axios.get(url, { params: params });
-          if (isGenreActive) {
-            setSuggestions(
-              response.data.result.filter((item) => item.includes(search))
-            );
-          } else {
-            setSuggestions(response.data.result);
-            setIsLoading(false);
-          }
+          setSuggestions(response.data.result);
+          setIsLoading(false);
         } catch (e) {
           console.error({ error: e });
         }
@@ -161,7 +156,7 @@ function Search() {
                   //if artist prop dne means its the name is the artists name
                   artist={!item.artist ? item.name : item.artist[0].name}
                   genre={item.genre}
-                  image={item.images[1].url}
+                  image={item.images ? item.images[1].url : null}
                   handleRemove={() => handleRemoveSelection(item.key)}
                 />
               ))}
@@ -198,7 +193,7 @@ function Search() {
               } `}
             />
           </div>
-          <button className="w-12 text-sm font-medium text-white bg-sky-blue rounded-lg border-sky-blue hover:bg-blue-600 hover:border-blue-600">
+          <button className="w-12 text-md font-medium text-white bg-sky-blue rounded-lg border-sky-blue hover:bg-blue-600 hover:border-blue-600">
             Go
           </button>
         </div>
