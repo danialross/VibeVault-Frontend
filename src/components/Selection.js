@@ -14,20 +14,20 @@ function Selections({ title, artist, genre, image, handleRemove }) {
 
   return (
     <div
-      className={`flex flex-col justify-center items-center gap-2 opacity-${curOpacity} transition-opacity ease-out duration-250`}
+      className={`flex flex-col justify-center items-center gap-2 opacity-${curOpacity} transition-transform ease-out duration-250 `}
     >
       <div
-        className={`relative w-32 bg-red-500 rounded-lg`}
+        className={`relative w-32 bg-red-500 rounded-xl `}
         onMouseEnter={() => setOnHover(true)}
         onMouseLeave={() => setOnHover(false)}
       >
         <div
-          className={` flex justify-center items-center bg-dark-violet rounded-lg w-32 h-32 object-cover ${
+          className={` flex justify-center items-center bg-dark-violet rounded-xl w-32 h-32 object-cover ${
             onHover ? "opacity-50 blur scale-105 grayscale" : ""
           } transition-all duration-100 ease-out`}
         >
           {image ? (
-            <img src={image} alt={`${title} cover`} />
+            <img src={image} alt={`${title} cover`} className="rounded-xl" />
           ) : (
             <FontAwesomeIcon
               icon={faRecordVinyl}

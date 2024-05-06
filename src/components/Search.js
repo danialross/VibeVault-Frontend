@@ -65,7 +65,7 @@ function Search() {
     setSuggestions([]);
   };
 
-  const addToSelection = (selection) => {
+  const handleAddSelection = (selection) => {
     for (const item of selections) {
       if (selection.key === item.key) {
         return;
@@ -154,9 +154,9 @@ function Search() {
                   //if artist prop exist means the name is the track name
                   title={item.artist ? item.name : null}
                   //if artist prop dne means its the name is the artists name
-                  artist={!item.artist ? item.name : item.artist[0].name}
+                  artist={item.artist ? item.artist[0].name : item.name}
                   genre={item.genre}
-                  image={item.images ? item.images[1].url : null}
+                  image={item.images ? item.images[1]?.url : null}
                   handleRemove={() => handleRemoveSelection(item.key)}
                 />
               ))}
@@ -248,7 +248,7 @@ function Search() {
                       disabled={buttonisDisabled}
                       onClick={() => {
                         item.key = uuidv4();
-                        addToSelection(item);
+                        handleAddSelection(item);
                       }}
                     >
                       {getButtonText(item)}

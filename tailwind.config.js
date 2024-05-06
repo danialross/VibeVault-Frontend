@@ -11,9 +11,6 @@ module.exports = {
         "sky-blue": "#00BFFF",
         "dark-violet": "#8A2BE2",
       },
-      lineClamp: {
-        4: "4",
-      },
     },
   },
   plugins: [],
