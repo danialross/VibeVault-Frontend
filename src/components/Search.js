@@ -222,7 +222,7 @@ function Search() {
               <div role="status" className=" flex justify-center p-4">
                 <svg
                   aria-hidden="true"
-                  className="inline h-32 w-32 text-gray-200 animate-spin dark:text-gray-600 fill-purple-600"
+                  className="inline h-16 w-16 text-gray-200 animate-spin dark:text-gray-600 fill-purple-600 m-8"
                   viewBox="0 0 100 101"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
@@ -260,15 +260,17 @@ function Search() {
                     </button>
                   </li>
                 ))}
-                <div
-                  className={`absolute text-white font-nunito top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600 p-2 rounded-lg ${
-                    buttonisDisabled
-                      ? "opacity-100 duration-200"
-                      : "opacity-0 duration-100"
-                  } transition-all ease-out`}
-                >
-                  Max Selections Reached
-                </div>
+                {search.length !== 0 && (
+                  <div
+                    className={`absolute text-white font-nunito top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600 p-2 rounded-lg ${
+                      buttonisDisabled
+                        ? "opacity-100 duration-200"
+                        : "opacity-0 duration-100"
+                    } transition-all ease-out`}
+                  >
+                    Max Selections Reached
+                  </div>
+                )}
               </ul>
             )}
           </div>
