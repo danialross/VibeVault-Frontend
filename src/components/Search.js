@@ -66,6 +66,12 @@ function Search() {
   };
 
   const addToSelection = (selection) => {
+    for (const item of selections) {
+      if (selection.key === item.key) {
+        return;
+      }
+    }
+
     setSelection([...selections, selection]);
   };
 
