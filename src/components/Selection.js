@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
 function Selections({ title, artist, genre, image, handleRemove }) {
   const [onHover, setOnHover] = useState(false);
-  const [curOpacity, setCurOpacity] = useState(0);
+  const [scale, setScale] = useState("scale-0");
 
   useEffect(() => {
-    setCurOpacity(100);
+    setScale("scale-100");
     setTimeout(() => {
       return;
     }, 250);
@@ -14,7 +14,7 @@ function Selections({ title, artist, genre, image, handleRemove }) {
 
   return (
     <div
-      className={`flex flex-col justify-center items-center gap-2 opacity-${curOpacity} transition-transform ease-out duration-250 `}
+      className={`flex flex-col justify-center items-center gap-2 ${scale} transition-transform ease-out duration-250 `}
     >
       <div
         className={`relative w-32 bg-red-500 rounded-xl `}
@@ -22,7 +22,7 @@ function Selections({ title, artist, genre, image, handleRemove }) {
         onMouseLeave={() => setOnHover(false)}
       >
         <div
-          className={` flex justify-center items-center bg-dark-violet rounded-xl w-32 h-32 object-cover ${
+          className={` flex justify-center items-center bg-dark-violet rounded-xl w-32 h-32 object-cover overflow-hidden ${
             onHover ? "opacity-50 blur scale-105 grayscale" : ""
           } transition-all duration-100 ease-out`}
         >
@@ -43,8 +43,8 @@ function Selections({ title, artist, genre, image, handleRemove }) {
               onHover ? "opacity-100" : "opacity-0"
             } transition-all duration-100`}
             onClick={() => {
-              setCurOpacity(0);
-              setTimeout(() => handleRemove(), 100);
+              setScale("scale-0");
+              setTimeout(() => handleRemove(), 250);
             }}
           >
             <FontAwesomeIcon icon={faX} color="white" />
