@@ -142,10 +142,10 @@ function Search() {
     <div className="bg-dark-violet w-[800px]">
       <div className="w-full flex flex-col justify-start items-center bg-gray-200 p-4 h-full rounded-2xl">
         <div className="flex flex-col justify-start items-center w-full h-[320px] bg-white rounded-xl p-2 mb-4 ">
-          <div className="text-dark-violet rounded-md text-lg font-nunito text-center mt-1">
+          <div className="text-dark-violet rounded-md text-lg font-nunito text-center mt-4">
             Selections
           </div>
-          <div className="flex items-start justify-evenly w-full h-full p-2">
+          <div className="flex items-start justify-evenly w-full py-6">
             {selections.length !== 0 &&
               selections.map((item) => (
                 <Selection
@@ -199,7 +199,7 @@ function Search() {
         <div className="relative flex justify-center pb-4 w-[410px]">
           <input
             value={search}
-            className="p-2 w-full text-sm outline-none rounded-s-lg text-gray-900 bg-gray-50 rounded-e-lg border-gray-300 focus:border-sky-blue"
+            className="p-2 w-full font-nunito text-sm outline-none rounded-s-lg text-gray-900 bg-gray-50 rounded-e-lg border-gray-300 focus:border-sky-blue"
             placeholder={`${isArtistActive ? "Search an Artist" : ""}${
               isTrackActive ? "Search a Track" : ""
             }${isGenreActive ? "Search a Genre" : ""}

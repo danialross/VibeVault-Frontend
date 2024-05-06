@@ -46,11 +46,11 @@ function Selections({ title, artist, genre, image, handleRemove }) {
       <div className="h-full w-28 text-center font-nunito">
         {title && (
           <>
-            <div className=" text-sm line-clamp-4 mb-2">{`${title}`}</div>
+            <div className=" text-sm line-clamp-2 mb-2">{`${title}`}</div>
             <div className="text-xs line-clamp-2">{`- ${artist}`}</div>
           </>
         )}
-        {genre && <div className=" text-sm line-clamp-4">{`${genre}`}</div>}
+        {genre && <div className=" text-sm line-clamp-2">{`${genre}`}</div>}
         {!title && !genre && (
           <div className="text-sm line-clamp-2">{`${artist}`}</div>
         )}
