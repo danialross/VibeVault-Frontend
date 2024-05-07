@@ -13,7 +13,7 @@ function Info() {
     "Pick a Genre, Hear Key Tracks.",
   ];
   return (
-    <div className="bg-dark-violet flex flex-col gap-8 mr-8">
+    <div className=" flex flex-col gap-8 mr-8">
       {icons.map((item, index) => {
         return (
           <div

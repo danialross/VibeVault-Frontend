@@ -140,10 +140,10 @@ function Search() {
   }, [selections]);
 
   return (
-    <div className="bg-dark-violet w-[800px]">
+    <div className="w-[800px]">
       <div className="w-full flex flex-col justify-start items-center bg-gray-200 p-4 h-full rounded-2xl">
-        <div className="flex flex-col justify-start items-center w-full h-[320px] bg-white rounded-xl p-2 mb-4 ">
-          <div className="text-dark-violet rounded-md text-lg font-nunito text-center mt-4">
+        <div className="flex flex-col justify-start items-center w-full h-[306px] bg-white rounded-xl p-2 mb-4">
+          <div className="text-dark-violet text-xl font-nunito text-center mt-4">
             Selections
           </div>
           <div className="flex items-start justify-evenly w-full py-6">
@@ -162,57 +162,49 @@ function Search() {
               ))}
           </div>
         </div>
-        <div className=" flex justify-center w-full pb-4">
-          <div className="mr-4 ">
-            <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 font-nunito">
-              <option value={"default"}>Recommendations</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-            </select>
-          </div>
-
-          <div className="flex relative font-medium text-center mr-4 rounded-xl bg-gray-400 border-gray-300 z-10">
+        <div className=" flex justify-center items-center w-full pb-4">
+          <div className="flex relative font-medium text-center mr-4 rounded-xl bg-white z-10">
             {options.map((item, index) => {
               return (
-                <div
-                  className={`p-2 z-30 text-md font-nunito text-white `}
+                <button
+                  className={`p-4 z-30 text-md font-nunito ${
+                    item.state ? "text-white" : "text-black"
+                  }`}
                   onClick={() => toggleSelections(item.type)}
                   key={index}
                 >
                   {item.type}
-                </div>
+                </button>
               );
             })}
             <div
-              className={`absolute h-8 bg-dark-violet top-1 z-20 rounded-lg transition-all ease-out duration-100 ${
-                isTrackActive ? "left-1 w-[46px]" : ""
-              } ${isArtistActive ? "left-14 w-[52px]" : ""} ${
-                isGenreActive ? "left-28 w-[54px]" : ""
+              className={`absolute h-[40px] bg-dark-violet top-2  z-20 rounded-lg transition-all ease-out duration-100 ${
+                isTrackActive ? "left-2 w-[56px]" : ""
+              } ${isArtistActive ? "left-[72px] w-[70px]" : ""} ${
+                isGenreActive ? "left-[152px] w-[58px]" : ""
               } `}
             />
           </div>
-          <button className="w-12 text-md font-medium text-white bg-sky-blue rounded-lg border-sky-blue hover:bg-blue-600 hover:border-blue-600">
+          <button className="h-14 w-14 text-md font-medium text-white bg-dark-violet border-4 border-dark-violet rounded-xl hover:text-xl transition-all duration-250 linear">
             Go
           </button>
         </div>
         <div className="relative flex justify-center pb-4 w-[410px]">
           <input
             value={search}
-            className="p-2 w-full font-nunito text-sm outline-none rounded-s-lg text-gray-900 bg-gray-50 rounded-e-lg border-gray-300 focus:border-sky-blue"
+            className="p-2.5 w-full font-nunito text-sm outline-none rounded-s-lg  bg-white rounded-e-lg pr-10"
             placeholder={`${isArtistActive ? "Search an Artist" : ""}${
               isTrackActive ? "Search a Track" : ""
             }${isGenreActive ? "Search a Genre" : ""}
             `}
             onChange={handleInput}
           />
-          <button className="absolute top-1.5 right-3">
+          <button className="absolute top-2 right-3">
             <FontAwesomeIcon icon={faX} onClick={handleClearInput} />
           </button>
         </div>
         {
-          <div className="relative bg-white w-full rounded-xl font-nunito">
+          <div className="relative bg-white w-full rounded-xl font-nunito py-">
             {isLoading ? (
               <div role="status" className=" flex justify-center p-4">
                 <svg
@@ -240,18 +232,20 @@ function Search() {
                   <li
                     className={` ${
                       buttonisDisabled ? "hover:none" : "hover:bg-gray-300"
-                    } rounded-md px-4 py-2 `}
+                    } rounded-md px-4 py-1`}
                     key={index}
                   >
                     <button
-                      className={`w-full text-start disabled:opacity-20 transition-opacity duration-500 ease-out`}
+                      className={`text-start disabled:opacity-20 transition-opacity duration-500 ease-out p-1`}
                       disabled={buttonisDisabled}
                       onClick={() => {
                         item.key = uuidv4();
                         handleAddSelection(item);
                       }}
                     >
-                      {getButtonText(item)}
+                      <div className="flex justify-center items-center line-clamp-1">
+                        {getButtonText(item)}
+                      </div>
                     </button>
                   </li>
                 ))}

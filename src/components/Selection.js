@@ -17,22 +17,22 @@ function Selections({ title, artist, genre, image, handleRemove }) {
       className={`flex flex-col justify-center items-center gap-2 ${scale} transition-transform ease-out duration-250 `}
     >
       <div
-        className={`relative w-32 bg-red-500 rounded-xl `}
+        className={`relative w-32 rounded-xl hover:bg-red-500`}
         onMouseEnter={() => setOnHover(true)}
         onMouseLeave={() => setOnHover(false)}
       >
         <div
-          className={` flex justify-center items-center bg-dark-violet rounded-xl w-32 h-32 object-cover overflow-hidden ${
+          className={` flex justify-center items-center rounded-xl w-32 h-32 object-cover overflow-hidden ${
             onHover ? "opacity-50 blur scale-105 grayscale" : ""
           } transition-all duration-100 ease-out`}
         >
           {image ? (
-            <img src={image} alt={`${title} cover`} className="rounded-xl" />
+            <img src={image} alt={`${title} cover`} />
           ) : (
             <FontAwesomeIcon
               icon={faRecordVinyl}
               color="white"
-              className="w-full h-full p-4"
+              className="w-full h-full p-4 bg-dark-violet"
             />
           )}
         </div>
