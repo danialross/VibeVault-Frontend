@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 
-function Recommendation({ title, artist, image }) {
+function Recommendation({ title, artist, image, index }) {
   const [isRendered, setIsRendered] = useState(false);
 
   useEffect(() => {
-    setIsRendered(true);
-  }, []);
+    const delay = index * 250;
+    setTimeout(() => setIsRendered(true), delay);
+  }, [index]);
+
   return (
     <div
       className={`flex items-center gap-6 ${
@@ -13,7 +15,7 @@ function Recommendation({ title, artist, image }) {
       } transition-transform duration-100 ease-out`}
     >
       <img
-        className="w-24 h-24 rounded-xl"
+        className="w-24 h-24 rounded-xl border-2 border-s-200"
         src={image}
         alt={`${artist ? title : artist} cover`}
       />

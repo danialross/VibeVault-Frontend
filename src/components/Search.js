@@ -227,25 +227,27 @@ function Search() {
           {recommendations.length > 0 && (
             <div className="flex w-full h-full">
               <div className="flex flex-col w-1/2 h-full justify-start">
-                {recommendations.slice(0, 4).map((item) => (
+                {recommendations.slice(0, 4).map((item, index) => (
                   <div className="p-2">
                     <Recommendation
                       key={item.name}
                       title={item.name}
                       artist={item.artists[0].name}
                       image={item.images[1]?.url}
+                      index={index}
                     />
                   </div>
                 ))}
               </div>
               <div className="flex flex-col w-1/2 h-full justify-start ">
-                {recommendations.slice(4, 8).map((item) => (
+                {recommendations.slice(4, 8).map((item, index) => (
                   <div className="p-2">
                     <Recommendation
                       key={item.name}
                       title={item.name}
                       artist={item.artists[0].name}
                       image={item.images[1]?.url}
+                      index={index}
                     />
                   </div>
                 ))}
@@ -259,7 +261,7 @@ function Search() {
             >
               <svg
                 aria-hidden="true"
-                className="inline text-gray-600  w-64 h-64 animate-spin  fill-purple-600 "
+                className="inline text-gray-600  w-48 h-48 animate-spin  fill-purple-600 "
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -353,19 +355,19 @@ function Search() {
                     {suggestions.map((item, index) => (
                       <li
                         className={` ${
-                          buttonisDisabled ? "hover:none" : "hover:bg-gray-300"
-                        } rounded-md px-4 py-1`}
+                          buttonisDisabled ? "" : "hover:bg-gray-300"
+                        }  rounded-md px-4 py-1`}
                         key={index}
                       >
                         <button
-                          className={`text-start disabled:opacity-20 transition-opacity duration-500 ease-out p-1`}
+                          className={`w-full disabled:opacity-20 transition-opacity duration-500 ease-out p-1`}
                           disabled={buttonisDisabled}
                           onClick={() => {
                             item.key = uuidv4();
                             handleAddSelection(item);
                           }}
                         >
-                          <div className="flex justify-center items-center line-clamp-1">
+                          <div className="flex justify-start items-center line-clamp-1">
                             {getButtonText(item)}
                           </div>
                         </button>
