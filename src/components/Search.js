@@ -112,7 +112,11 @@ function Search() {
       }
 
       for (let i = 0; i < selections.length; i++) {
-        ids += selections[i].id + ",";
+        if (i === selections.length - 1) {
+          ids += selections[i].id;
+        } else {
+          ids += selections[i].id + ",";
+        }
       }
       params.id = ids;
       let url = `${process.env.REACT_APP_API_URL}/recommendations/${type}`;
@@ -122,6 +126,7 @@ function Search() {
         if (isTrackActive) {
           setRecommendation(response.data.tracks);
         } else if (isArtistActive) {
+          console.log(response.data.artists);
           setRecommendation(response.data.artists);
         } else {
           setRecommendation(response.data.genre);
@@ -183,10 +188,18 @@ function Search() {
   }, [debounceInput]);
 
   useEffect(() => {
-    if (selections.length >= 5) {
-      setButtonIsDisabled(true);
+    if (isArtistActive) {
+      if (selections.length >= 1) {
+        setButtonIsDisabled(true);
+      } else {
+        setButtonIsDisabled(false);
+      }
     } else {
-      setButtonIsDisabled(false);
+      if (selections.length >= 5) {
+        setButtonIsDisabled(true);
+      } else {
+        setButtonIsDisabled(false);
+      }
     }
   }, [selections]);
 
@@ -219,7 +232,7 @@ function Search() {
                   //if artist prop dne means its the name is the artists name
                   artist={item.artist ? item.artist[0].name : item.name}
                   genre={item.genre}
-                  image={item.images ? item.images[1]?.url : null}
+                  image={item.images ? item.images[1]?.url : undefined}
                   handleRemove={() => handleRemoveSelection(item.key)}
                 />
               ))}
@@ -232,8 +245,8 @@ function Search() {
                     <Recommendation
                       key={item.name}
                       title={item.name}
-                      artist={item.artists[0].name}
-                      image={item.images[1]?.url}
+                      artist={item.artists ? item.artists[0].name : undefined}
+                      image={item.images ? item.images[1].url : undefined}
                       index={index}
                     />
                   </div>
@@ -245,8 +258,8 @@ function Search() {
                     <Recommendation
                       key={item.name}
                       title={item.name}
-                      artist={item.artists[0].name}
-                      image={item.images[1]?.url}
+                      artist={item.artists ? item.artists[0].name : undefined}
+                      image={item.images ? item.images[1].url : undefined}
                       index={index}
                     />
                   </div>

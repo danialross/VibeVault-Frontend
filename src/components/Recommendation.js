@@ -20,8 +20,9 @@ function Recommendation({ title, artist, image, index }) {
         alt={`${artist ? title : artist} cover`}
       />
       <div className=" flex flex-col">
-        <div className="line-clamp-1">{artist ? title : artist}</div>
-        {artist && <div className="line-clamp-1">{artist}</div>}
+        {/* if the title exist, means its a track if it doesnt its a artist */}
+        <div className="line-clamp-1">{title ? title : artist}</div>
+        {title && <div className="line-clamp-1">{artist}</div>}
       </div>
     </div>
   );
