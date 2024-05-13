@@ -101,7 +101,6 @@ function Search() {
       setIsLoadingRecommendations(true);
       let params = {};
       let type = "";
-      let ids = "";
 
       if (isTrackActive) {
         type = "track";
@@ -111,14 +110,28 @@ function Search() {
         type = "genre";
       }
 
-      for (let i = 0; i < selections.length; i++) {
-        if (i === selections.length - 1) {
-          ids += selections[i].id;
-        } else {
-          ids += selections[i].id + ",";
+      if (isGenreActive) {
+        let genres = "";
+        //to lowercase to match the id in the spotify database, uppercase only for displaying to user
+        for (let i = 0; i < selections.length; i++) {
+          if (i === selections.length - 1) {
+            genres += selections[i].genre.toLowerCase();
+          } else {
+            genres += selections[i].genre.toLowerCase() + ",";
+          }
         }
+        params.id = genres;
+      } else {
+        let ids = "";
+        for (let i = 0; i < selections.length; i++) {
+          if (i === selections.length - 1) {
+            ids += selections[i].id;
+          } else {
+            ids += selections[i].id + ",";
+          }
+        }
+        params.id = ids;
       }
-      params.id = ids;
       let url = `${process.env.REACT_APP_API_URL}/recommendations/${type}`;
 
       try {
@@ -128,7 +141,7 @@ function Search() {
         } else if (isArtistActive) {
           setRecommendation(response.data.artists);
         } else {
-          setRecommendation(response.data.genre);
+          setRecommendation(response.data.tracks);
         }
         setIsLoadingRecommendations(false);
       } catch (e) {
