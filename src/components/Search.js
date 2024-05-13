@@ -409,7 +409,7 @@ function Search() {
                     )}
                     {search.length !== 0 && suggestions.length === 0 && (
                       <div className="w-full flex justify-center items-center bg-gray-200">
-                        <div className="w-1/3 text-white font-nunito text-center bg-gray-600 p-6 m-8 rounded-lg">
+                        <div className="w-1/3 text-white font-nunito text-center bg-gray-500 p-6 m-8 rounded-lg">
                           No Results Found
                         </div>
                       </div>
