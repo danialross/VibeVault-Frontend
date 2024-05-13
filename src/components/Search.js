@@ -126,7 +126,6 @@ function Search() {
         if (isTrackActive) {
           setRecommendation(response.data.tracks);
         } else if (isArtistActive) {
-          console.log(response.data.artists);
           setRecommendation(response.data.artists);
         } else {
           setRecommendation(response.data.genre);
@@ -241,9 +240,8 @@ function Search() {
             <div className="flex w-full h-full">
               <div className="flex flex-col w-1/2 h-full justify-start">
                 {recommendations.slice(0, 4).map((item, index) => (
-                  <div className="p-2">
+                  <div className="p-2" key={item.name}>
                     <Recommendation
-                      key={item.name}
                       title={item.name}
                       artist={item.artists ? item.artists[0].name : undefined}
                       image={item.images ? item.images[1].url : undefined}
@@ -254,9 +252,8 @@ function Search() {
               </div>
               <div className="flex flex-col w-1/2 h-full justify-start ">
                 {recommendations.slice(4, 8).map((item, index) => (
-                  <div className="p-2">
+                  <div className="p-2" key={item.name}>
                     <Recommendation
-                      key={item.name}
                       title={item.name}
                       artist={item.artists ? item.artists[0].name : undefined}
                       image={item.images ? item.images[1].url : undefined}
