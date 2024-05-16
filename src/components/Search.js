@@ -15,7 +15,7 @@ function Search() {
   const [selections, setSelection] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [debounceInput, setDebounceInput] = useState("");
-  const [buttonisDisabled, setButtonIsDisabled] = useState(false);
+  const [isGoButtonDisabled, setIsGoButtonDisabled] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [recommendations, setRecommendation] = useState([]);
   const [isLoadingRecommendations, setIsLoadingRecommendations] =
@@ -202,15 +202,15 @@ function Search() {
   useEffect(() => {
     if (isArtistActive) {
       if (selections.length >= 1) {
-        setButtonIsDisabled(true);
+        setIsGoButtonDisabled(true);
       } else {
-        setButtonIsDisabled(false);
+        setIsGoButtonDisabled(false);
       }
     } else {
       if (selections.length >= 5) {
-        setButtonIsDisabled(true);
+        setIsGoButtonDisabled(true);
       } else {
-        setButtonIsDisabled(false);
+        setIsGoButtonDisabled(false);
       }
     }
   }, [selections]);
@@ -228,7 +228,7 @@ function Search() {
           </div>
 
           <div
-            className={`flex items-start justify-evenly w-full ${
+            className={`relative flex items-start justify-evenly w-full h-full ${
               recommendations.length > 0 ? "py-2" : "py-6"
             }  transition-transform ${
               isSearchVisible ? "scale-100" : "scale-0"
@@ -248,6 +248,17 @@ function Search() {
                   handleRemove={() => handleRemoveSelection(item.key)}
                 />
               ))}
+            {
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                <div
+                  className={`font-nunito text-center text-white bg-gray-600 p-2 rounded-lg ${
+                    selections.length === 0 ? "opacity-100" : "opacity-0"
+                  } transition-opacity duration-200`}
+                >
+                  No Selections
+                </div>
+              </div>
+            }
           </div>
           {recommendations.length > 0 && (
             <div className="flex w-full h-full">
@@ -378,13 +389,13 @@ function Search() {
                     {suggestions.map((item, index) => (
                       <li
                         className={` ${
-                          buttonisDisabled ? "" : "hover:bg-gray-300"
+                          isGoButtonDisabled ? "" : "hover:bg-gray-300"
                         }  rounded-md px-4 py-1`}
                         key={index}
                       >
                         <button
                           className={`w-full disabled:opacity-20 transition-opacity duration-500 ease-out p-1`}
-                          disabled={buttonisDisabled}
+                          disabled={isGoButtonDisabled}
                           onClick={() => {
                             item.key = uuidv4();
                             handleAddSelection(item);
@@ -398,11 +409,9 @@ function Search() {
                     ))}
                     {search.length !== 0 && (
                       <div
-                        className={`absolute text-white font-nunito top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600 p-2 rounded-lg ${
-                          buttonisDisabled
-                            ? "opacity-100 duration-200"
-                            : "opacity-0 duration-100"
-                        } transition-all ease-out`}
+                        className={`absolute text-white font-nunito top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red-600 p-2 rounded-lg duration-100 ${
+                          isGoButtonDisabled ? "opacity-100" : "opacity-0"
+                        } transition-opacity ease-out`}
                       >
                         Max Selections Reached
                       </div>
