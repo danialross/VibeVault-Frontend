@@ -219,7 +219,7 @@ function Search() {
     <div className="w-[800px]">
       <div className="w-full flex flex-col justify-start items-center bg-gray-200 p-4 h-full rounded-2xl">
         <div
-          className={`flex flex-col justify-start items-center w-full h-full mb-4 ${
+          className={`flex flex-col justify-start items-center w-full mb-4 ${
             isSearchVisible ? "h-[306px]" : "h-full"
           } bg-white rounded-xl p-2 transition-all duration-700 ease-out`}
         >
