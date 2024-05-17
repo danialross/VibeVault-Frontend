@@ -8,7 +8,6 @@ function App() {
   const handleAnimationEnd = () => {
     setIsIntroAnimationEnd(true);
   };
-  console.log(isIntroAnimationEnd);
   return (
     <div className="bg-dark-violet">
       {!isIntroAnimationEnd && (
