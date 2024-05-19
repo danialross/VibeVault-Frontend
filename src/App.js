@@ -9,7 +9,7 @@ function App() {
     setIsIntroAnimationEnd(true);
   };
   return (
-    <div className="bg-dark-violet">
+    <div className=" bg-dark-violet h-screen min-h-[700px] min-w-[1080px]">
       {!isIntroAnimationEnd && (
         <Intro handleAnimationEnd={handleAnimationEnd} />
       )}

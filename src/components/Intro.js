@@ -1,6 +1,6 @@
 function Intro({ handleAnimationEnd }) {
   return (
-    <div className="flex h-screen min-h-[842px] min-w-[1080px] justify-center items-center bg-dark-violet overflow-x-hidden">
+    <div className="flex h-full justify-center items-center bg-dark-violet overflow-x-hidden">
       <div className="absolute text-white font-satisfy text-intro">
         VibeVault
       </div>
